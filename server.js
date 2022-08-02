@@ -1,11 +1,7 @@
-// import * as Puppeteer from 'puppeteer'
-// import Express from 'express'
-// import Mongoose from 'mongoose'
-// import bodyParser from 'body-parser' 
-const Puppeteer = require('puppeteer')
-const Express = require('express')
-const Mongoose = require('mongoose')
-const bodyParser = require('body-parser')
+import * as Puppeteer from 'puppeteer'
+import Express from 'express'
+import Mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 
 const server = new Express
 
@@ -41,7 +37,6 @@ const directoryInfo = async (collectionID) => {
     await page.goto(sourceURL)
     await page.waitForSelector('#methods > li')
 
-
     let canisterInterface = await page.evaluate(()=>{
         let methodList = Array.from(document.querySelectorAll('#methods > li'))
 
@@ -49,10 +44,8 @@ const directoryInfo = async (collectionID) => {
             return item.id
         }))
     })
-
     await browser.close()
-
-    console.log(canisterInterface)
+    // console.log(canisterInterface)
     return (canisterInterface)
 }
 
