@@ -1,47 +1,58 @@
-import Puppeteer from 'puppeteer'
-import Express from 'express'
-import Mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+// import * as Puppeteer from 'puppeteer'
+// import Express from 'express'
+// import Mongoose from 'mongoose'
+// import bodyParser from 'body-parser' 
+const Puppeteer = require('puppeteer')
+const Express = require('express')
+const Mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+
+const server = new Express
+
+console.log('Start')
+
+server.use(Express.json());
+server.use(Express.urlencoded({ extended: true }));
+server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
+    next();
+})
+
+server.listen(process.env.PORT || 3001, () =>{
+    console.log('Server is running')
+})
+
+server.get('/directoryinfo/:collection', async(req, res, next) => {
+    const tryThis = await directoryInfo(req.params.collection)
+    res.json(tryThis)
+})
+
+const directoryInfo = async (collectionID) => {
+
+    console.log('Run Function')
+
+    let sourceURL = `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=${collectionID}`
+
+    let browser = await Puppeteer.launch()
+    let page = await browser.newPage()
+
+    await page.goto(sourceURL)
+    await page.waitForSelector('#methods > li')
 
 
-// const Express = require('express')
-// const Mongoose = require('mongoose')
-// const bodyParser = require('body-parser')
-// const Puppeteer = require('puppeteer');
+    let canisterInterface = await page.evaluate(()=>{
+        let methodList = Array.from(document.querySelectorAll('#methods > li'))
 
-const updateDirectoryInfo = (x, y) =>{
+        return Promise.all( methodList.map(async (item)=>{
+            return item.id
+        }))
+    })
 
-    (async () => {
-        console.log('\n----- AI Faces API: -----\n')
-    
-        let sourceURL = 'https://generated.photos/faces/beautified/adult/joy/male'
-    
-        let browser = await Puppeteer.launch()
-        let page = await browser.newPage()
-    
-        await page.goto(sourceURL)
-    
-        // const clickingAction = await page.evaluate()
-        
-    
-        let tvRes = await page.evaluate(()=>{
-    
-            // page.click('[class="loadmore"]')
-    
-            let tvEntry = Array.from(document.querySelectorAll('div.card-image'))
-            // tvTemp = []
-    
-            return Promise.all( tvEntry.map(async (item) =>{
-                let tvPrice = await item.querySelector('img').src
-                let itemPush = tvPrice
-                return itemPush
-            }))
-            // return tvTemp
-        })
-    
-        await browser.close()
-    
-        console.log(tvRes)
-    })()
+    await browser.close()
 
+    console.log(canisterInterface)
+    return (canisterInterface)
 }
+

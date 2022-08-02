@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -22,6 +23,10 @@
     "body-parser": "^1.20.0",
     "express": "^4.18.1",
     "mongoose": "^6.4.6",
-    "puppeteer": "^15.5.0"
+    "puppeteer": "^15.5.0",
+    "puppeteer-core": "^15.5.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^5.4.6"
   }
 }
