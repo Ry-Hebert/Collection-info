@@ -20,8 +20,9 @@ server.listen(process.env.PORT || 3001, () =>{
     console.log('Server is running')
 })
 
-server.get('/directoryinfo/:collection', async(req, res, next) => {
-    const tryThis = await directoryInfo(req.params.collection).then(()=>{res.json(tryThis)})
+server.get('/directoryinfo/:collection', (req, res, next) => {
+    const tryThis = directoryInfo(req.params.collection).then(()=>{})
+    res.json(tryThis)
 })
 
 const directoryInfo = async (collectionID) => {
