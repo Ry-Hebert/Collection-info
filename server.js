@@ -21,8 +21,8 @@ server.listen(process.env.PORT || 3001, () =>{
 })
 
 server.get('/directoryinfo/:collection', async(req, res, next) => {
-    let getMethods = await directoryInfo(req.params.collection)
-    res.json(getMethods)
+    res.json() = await directoryInfo(req.params.collection)
+
 })
 
 const directoryInfo = async (collectionID) => {
