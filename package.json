@@ -27,6 +27,7 @@
     "puppeteer-core": "^15.5.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/puppeteer": "^5.4.6"
   }
 }
