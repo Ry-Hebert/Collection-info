@@ -20,9 +20,9 @@ server.listen(process.env.PORT || 3001, () =>{
     console.log('Server is running')
 })
 
-server.get('/directoryinfo/:collection', (req, res, next) => {
-    let methodReturn = directoryInfo(req.params.collection)
-    res.json(methodReturn)
+server.get('/directoryinfo/:collection', async(req, res, next) => {
+    await directoryInfo(req.params.collection).then((x)=>{res.json(x)})
+    // res.json(tryThis)
 })
 
 const directoryInfo = async (collectionID) => {
@@ -48,3 +48,4 @@ const directoryInfo = async (collectionID) => {
     // console.log(canisterInterface)
     return (canisterInterface)
 }
+
