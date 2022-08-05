@@ -25,27 +25,51 @@ server.get('/directoryinfo/:collection', (req, res, next) => {
     res.json(methodReturn)
 })
 
-const directoryInfo = async (collectionID) => {
+const directoryInfo = (collectionID) => {
 
     console.log('Run Function')
 
     let sourceURL = `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=${collectionID}`
 
-    let browser = await Puppeteer.launch()
-    let page = await browser.newPage()
+    let browser = Puppeteer.launch()
+    let page = browser.newPage()
 
-    await page.goto(sourceURL)
-    await page.waitForSelector('#methods > li')
+    page.goto(sourceURL)
+    page.waitForSelector('#methods > li')
 
-    let canisterInterface = await page.evaluate(()=>{
+    let canisterInterface = page.evaluate(()=>{
         let methodList = Array.from(document.querySelectorAll('#methods > li'))
 
         return Promise.all( methodList.map(async (item)=>{
             return item.id
         }))
     })
-    await browser.close()
+    browser.close()
     // console.log(canisterInterface)
     return (canisterInterface)
 }
 
+
+// const directoryInfo = async (collectionID) => {
+
+//     console.log('Run Function')
+
+//     let sourceURL = `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=${collectionID}`
+
+//     let browser = await Puppeteer.launch()
+//     let page = await browser.newPage()
+
+//     await page.goto(sourceURL)
+//     await page.waitForSelector('#methods > li')
+
+//     let canisterInterface = await page.evaluate(()=>{
+//         let methodList = Array.from(document.querySelectorAll('#methods > li'))
+
+//         return Promise.all( methodList.map(async (item)=>{
+//             return item.id
+//         }))
+//     })
+//     await browser.close()
+//     // console.log(canisterInterface)
+//     return (canisterInterface)
+// }
