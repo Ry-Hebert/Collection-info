@@ -1,7 +1,12 @@
-import * as Puppeteer from 'puppeteer'
-import Express from 'express'
-import Mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+const Express = require('express')
+const Puppeteer = require('puppeteer')
+const Mongoose = require('mongoose')
+const BodyParser = require('body-parser')
+
+// import * as Puppeteer from 'puppeteer'
+// import Express from 'express'
+// import Mongoose from 'mongoose'
+// import bodyParser from 'body-parser'
 
 const server = new Express()
 
