@@ -3,7 +3,7 @@ import Express from 'express'
 import Mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 
-const server = new Express
+const server = new Express()
 
 console.log('Start')
 
