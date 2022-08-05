@@ -40,9 +40,11 @@ const directoryInfo = (collectionID) => {
     let canisterInterface = page.evaluate(()=>{
         let methodList = Array.from(document.querySelectorAll('#methods > li'))
 
-        return Promise.all( methodList.map(async (item)=>{
+        let resMethodList = methodList.map(async (item)=>{
             return item.id
-        }))
+        })
+
+        return resMethodList
     })
     browser.close()
     // console.log(canisterInterface)
