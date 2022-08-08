@@ -21,8 +21,10 @@ server.use((req, res, next) => {
     next();
 })
 
-server.listen(process.env.PORT || 3001, () =>{
-    console.log('Server is running')
+const PORT = process.env.PORT || 3001
+
+server.listen(PORT, () =>{
+    console.log(`Server is running on Port: ${PORT}`)
 })
 
 server.get('/directoryinfo/:collection', async(req, res, next) => {
@@ -36,7 +38,10 @@ const directoryInfo = async (collectionID) => {
 
     let sourceURL = `https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.ic0.app/?id=${collectionID}`
 
-    let browser = await Puppeteer.launch()
+    let browser = await Puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox']
+    })
     let page = await browser.newPage()
 
     await page.goto(sourceURL)
