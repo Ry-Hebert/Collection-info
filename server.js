@@ -28,7 +28,7 @@ server.listen(PORT, () =>{
 })
 
 server.get('/directoryinfo/:collection', async(req, res, next) => {
-    await directoryInfo(req.params.collection).then((x)=>{res.send(json(x))})
+    await directoryInfo(req.params.collection).then((x)=>{res.send(x)})
     // res.json(tryThis)
 })
 
