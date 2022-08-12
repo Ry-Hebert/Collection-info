@@ -1,12 +1,10 @@
 const Express = require('express')
 const Puppeteer = require('puppeteer')
-const Cors = require('corse')
 
 const server = new Express()
 
 console.log('Start')
 
-server.use(Cors())
 server.use(Express.json());
 server.use(Express.urlencoded({ extended: true }));
 server.use((req, res, next) => {
