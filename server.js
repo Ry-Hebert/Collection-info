@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 3001
 
 server.listen(PORT, () =>{
     console.log(`Server is running on Port: ${PORT}`)
-})
+}) 
 
 server.get('/directoryinfo/:collection', async(req, res, next) => {
     await directoryInfo(req.params.collection).then((x)=>{res.send(x)})
