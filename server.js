@@ -1,17 +1,12 @@
 const Express = require('express')
 const Puppeteer = require('puppeteer')
-// const Mongoose = require('mongoose')
-// const BodyParser = require('body-parser')
-
-// import * as Puppeteer from 'puppeteer'
-// import Express from 'express'
-// import Mongoose from 'mongoose'
-// import bodyParser from 'body-parser'
+const Cors = require('corse')
 
 const server = new Express()
 
 console.log('Start')
 
+server.use(Cors())
 server.use(Express.json());
 server.use(Express.urlencoded({ extended: true }));
 server.use((req, res, next) => {
@@ -29,7 +24,6 @@ server.listen(PORT, () =>{
 
 server.get('/directoryinfo/:collection', async(req, res, next) => {
     await directoryInfo(req.params.collection).then((x)=>{res.send(x)})
-    // res.json(tryThis)
 })
 
 const directoryInfo = async (collectionID) => {
@@ -55,7 +49,5 @@ const directoryInfo = async (collectionID) => {
         }))
     })
     await browser.close()
-    // console.log(canisterInterface)
     return (canisterInterface)
 }
-
